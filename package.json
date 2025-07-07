@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "cross-env MODE=production next build",
-    "build:github": "cross-env MODE=production NEXT_PUBLIC_BASE_PATH=/idea next build",
+    "build": "next build",
     "start": "next start"
     },
   "keywords": [
