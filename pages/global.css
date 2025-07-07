@@ -28,6 +28,19 @@ header {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.edit-page-button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
 h1 {
     color: #333;
     margin: 0;
@@ -195,6 +208,238 @@ button:hover {
     color: white;
     font-size: 12px;
     padding: 6px 12px;
+}
+
+.delete-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Edit Page Styles */
+.edit-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.back-to-feed-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.auth-section {
+    display: flex;
+    align-items: center;
+}
+
+.login-prompt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.login-card h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.login-card p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.no-permission {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    padding: 20px;
+}
+
+.no-permission-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.no-permission-card h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.no-permission-card p {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.back-button {
+    background-color: #0366d6;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.edit-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .edit-header-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .login-card, .no-permission-card {
+        padding: 30px 20px;
+    }
+    
+    .edit-content {
+        gap: 20px;
+    }
+}
+
+/* Login Page Styles */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.login-content {
+    margin-bottom: 30px;
+}
+
+.login-footer {
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.login-footer small {
+    color: #999;
+    line-height: 1.4;
+}
+
+/* Updated Header Styles */
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.guest-section {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-style: italic;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info img {
+    border-radius: 50%;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.loading {
+    text-align: center;
+    padding: 50px;
+}
+
+.loading p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .login-page {
+        padding: 10px;
+    }
+    
+    .login-container {
+        padding: 30px 20px;
+    }
+    
+    .login-header h1 {
+        font-size: 2em;
+    }
+    
+    .user-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .guest-section {
+        text-align: center;
+    }
+    
+    .header-actions {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
 }
 
 /* GitHub Sync Styles */

@@ -41,14 +41,20 @@ npm run dev
 
 ### 基本的な使用方法
 
-1. サイトにアクセス
+1. `/login` ページにアクセス
 2. "GitHubでログイン" をクリック
 3. Personal Access Token を入力
-4. nknightaユーザーの場合、アイデアの編集が可能になります
+4. ログイン成功後、自動的にフィードページにリダイレクト
+5. nknightaユーザーの場合、アイデアの編集が可能になります
+
+### ページ構成
+
+- `/login` - ログインページ
+- `/` - メインフィード（認証が必要）
 
 ### GitHub同期の設定
 
-1. ログイン後、「リポジトリを設定」をクリック
+1. nknightaユーザーでログイン後、「リポジトリを設定」をクリック
 2. オーナー名（GitHubユーザー名）を入力
 3. リポジトリ名を入力
 4. 「接続」をクリック
@@ -112,12 +118,13 @@ my-idea/
 │   ├── GitHubAuth.tsx    # GitHub認証コンポーネント
 │   ├── GitHubSync.tsx    # GitHub同期設定
 │   └── IdeaFeed.tsx      # アイデアフィード
-├── utils/
-│   └── github.ts         # GitHub API ユーティリティ
 ├── pages/
-│   ├── index.tsx         # メインページ
+│   ├── index.tsx         # メインフィードページ
+│   ├── login.tsx         # ログインページ
 │   ├── global.css        # グローバルスタイル
 │   └── _app.tsx          # Next.js App
+├── utils/
+│   └── github.ts         # GitHub API ユーティリティ
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml    # GitHub Actions設定

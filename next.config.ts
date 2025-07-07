@@ -7,6 +7,9 @@ const nextConfig = {
     },
     assetPrefix: process.env.NODE_ENV === 'production' ? '/my-idea' : '',
     basePath: process.env.NODE_ENV === 'production' ? '/my-idea' : '',
+    experimental: {
+        esmExternals: false,
+    },
 };
 
 module.exports = nextConfig;

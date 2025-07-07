@@ -21,6 +21,7 @@ export default function IdeaFeed({ canEdit, githubService }: IdeaFeedProps) {
     const [newDescription, setNewDescription] = useState('');
     const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'error'>('idle');
     const [lastSync, setLastSync] = useState<Date | null>(null);
+    const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
     useEffect(() => {
         loadIdeas();
@@ -53,17 +54,30 @@ export default function IdeaFeed({ canEdit, githubService }: IdeaFeedProps) {
     const loadFromLocalStorage = () => {
         const savedIdeas = localStorage.getItem('ideas');
         if (savedIdeas) {
-            setIdeas(JSON.parse(savedIdeas));
+            try {
+                const parsedIdeas = JSON.parse(savedIdeas);
+                setIdeas(parsedIdeas);
+            } catch (error) {
+                console.error('LocalStorageの読み込みエラー:', error);
+                setIdeas([]);
+            }
+        } else {
+            setIdeas([]);
         }
     };
 
     const saveIdeas = async (newIdeas: Idea[]) => {
+        console.log('saveIdeas開始:', newIdeas.length, '件');
+        
         setIdeas(newIdeas);
         localStorage.setItem('ideas', JSON.stringify(newIdeas));
+        console.log('LocalStorageに保存完了');
         
         // GitHubにも同期
         if (githubService) {
+            console.log('GitHub同期開始');
             await syncToGitHub(newIdeas);
+            console.log('GitHub同期完了');
         }
     };
 
@@ -77,20 +91,22 @@ export default function IdeaFeed({ canEdit, githubService }: IdeaFeedProps) {
                 formatDate(new Date(idea.createdAt)) === today
             );
             
+            // 今日のアイデアがない場合は空のマークダウンファイルを作成
+            let markdown = `# アイデア - ${today}\n\n`;
             if (todayIdeas.length > 0) {
-                let markdown = `# アイデア - ${today}\n\n`;
                 todayIdeas.forEach(idea => {
                     markdown += ideaToMarkdown(idea);
                 });
-                
-                await githubService.updateMarkdownFile(
-                    today,
-                    markdown,
-                    `Update ideas for ${today}`
-                );
-                setLastSync(new Date());
+            } else {
+                markdown += '今日のアイデアはまだありません。\n';
             }
             
+            await githubService.updateMarkdownFile(
+                today,
+                markdown,
+                `Update ideas for ${today}`
+            );
+            setLastSync(new Date());
             setSyncStatus('idle');
         } catch (error) {
             console.error('GitHub同期エラー:', error);
@@ -142,10 +158,29 @@ export default function IdeaFeed({ canEdit, githubService }: IdeaFeedProps) {
         }
     };
 
-    const handleDeleteIdea = (id: string) => {
+    const handleDeleteIdea = async (id: string) => {
+        console.log('削除処理開始:', id);
+        console.log('削除前のアイデア数:', ideas.length);
+        
+        if (isDeleting) {
+            console.log('削除処理中のため、処理をスキップ');
+            return;
+        }
+        
         if (confirm('このアイデアを削除しますか？')) {
-            const updatedIdeas = ideas.filter(idea => idea.id !== id);
-            saveIdeas(updatedIdeas);
+            setIsDeleting(id);
+            
+            try {
+                const updatedIdeas = ideas.filter(idea => idea.id !== id);
+                console.log('削除後のアイデア数:', updatedIdeas.length);
+                
+                await saveIdeas(updatedIdeas);
+                console.log('削除処理完了');
+            } catch (error) {
+                console.error('削除処理エラー:', error);
+            } finally {
+                setIsDeleting(null);
+            }
         }
     };
 
@@ -243,9 +278,10 @@ export default function IdeaFeed({ canEdit, githubService }: IdeaFeedProps) {
                                     </button>
                                     <button 
                                         onClick={() => handleDeleteIdea(idea.id)}
+                                        disabled={isDeleting === idea.id}
                                         className="delete-button"
                                     >
-                                        削除
+                                        {isDeleting === idea.id ? '削除中...' : '削除'}
                                     </button>
                                 </div>
                             )}

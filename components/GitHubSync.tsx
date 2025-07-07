@@ -91,11 +91,12 @@ export default function GitHubSync({ user, onSyncStatusChange }: GitHubSyncProps
     };
 
     if (!user) {
-        return (
-            <div className="github-sync">
-                <p>GitHubにログインするとリポジトリ同期が利用できます</p>
-            </div>
-        );
+        return null; // 認証されていない場合は何も表示しない
+    }
+
+    // 編集権限のないユーザーには同期機能を表示しない
+    if (user.login !== 'nknighta') {
+        return null;
     }
 
     return (
