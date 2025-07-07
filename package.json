@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cross-env NODE_ENV=production next build",
+    "build:github": "cross-env NODE_ENV=production NEXT_PUBLIC_BASE_PATH=/idea next build",
     "start": "next start",
     "export": "next build && next export"
   },
@@ -30,6 +31,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.6"
+    "@types/js-cookie": "^3.0.6",
+    "cross-env": "^7.0.3"
   }
 }
