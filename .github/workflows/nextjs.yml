@@ -78,8 +78,8 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} build
         env:
-          MODE: ${{ secrets.MODE || 'production' }}
-          NEXT_PUBLIC_BASE_PATH: ${{ secrets.NEXT_PUBLIC_BASE_PATH || '/idea' }}
+          MODE: production
+          NEXT_PUBLIC_BASE_PATH: /idea
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
