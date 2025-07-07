@@ -31,7 +31,7 @@ jobs:
         run: npm install
       
       - name: Build project
-        run: npm run build:github
+        run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /idea
       
