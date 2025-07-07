@@ -80,6 +80,7 @@ jobs:
         env:
           MODE: production
           NEXT_PUBLIC_BASE_PATH: /idea
+          NEXT_PUBLIC_GITHUB_TOKEN: ${{ secrets.NEXT_PUBLIC_GITHUB_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
