@@ -6,9 +6,8 @@
     "dev": "next dev",
     "build": "cross-env NODE_ENV=production next build",
     "build:github": "cross-env NODE_ENV=production NEXT_PUBLIC_BASE_PATH=/idea next build",
-    "start": "next start",
-    "export": "next build && next export"
-  },
+    "start": "next start"
+    },
   "keywords": [
     "idea",
     "project"
